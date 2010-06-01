@@ -12,7 +12,13 @@ Makefile.PL
 MANIFEST
 README
 t/00-load.t
+t/01-closure.t
 t/boilerplate.t
+t/integration_test.t
+t/lib/t/WebService/Google/Closure.pm
 t/manifest.t
+t/meta/bad.js
+t/meta/json2.js
+t/mock/01-closure
 t/pod-coverage.t
 t/pod.t
