@@ -165,8 +165,8 @@ using the Google Closure compiler.
     print "Compressed size = " . $res2->stats->compressed_size . "\n";
 
 
-For more information about the Google Closure compile, visit its website at
- http://code.google.com/closure/
+For more information on the Google Closure compiler, visit its website at L<http://code.google.com/closure/>
+
 
 =head1 METHODS
 
@@ -176,7 +176,67 @@ Possible options;
 
 =over 4
 
-=item
+=item compilation_level
+
+Specifying how aggressive the compiler should be. There are currently three options.
+
+=over 8
+
+=item "WHITESPACE_ONLY" or 1
+
+Just removes whitespace and comments from your JavaScript.
+
+=item "SIMPLE_OPTIMIZATIONS" or 2 (default)
+
+Performs compression and optimization that does not interfere with the interaction between the compiled JavaScript and other JavaScript. This level renames only local variables.
+
+=item "ADVANCED_OPTIMIZATIONS" or 3
+
+Achieves the highest level of compression by renaming symbols in your JavaScript. When using ADVANCED_OPTIMIZATIONS compilation you must perform extra steps to preserve references to external symbols.
+
+=back
+
+=item js_code
+
+A string containing Javascript code.
+
+=item file
+
+One or more filenames of the files you want compiled
+
+Example:
+
+    use WebService::Google::Closure;
+
+    my $cl1 = WebService::Google::Closure->new(
+       file => "/var/www/js/base.js",
+    );
+
+    my $cl2 = WebService::Google::Closure->new(
+       file => [qw( /var/www/js/base.js /var/www/js/classes.js )],
+     );
+
+=item url
+
+One or more urls to the files you want compiled
+
+Example:
+
+    use WebService::Google::Closure;
+
+    my $res = WebService::Google::Closure->new(
+       url => "http://code.jquery.com/jquery-1.4.2.js",
+       compilation_level => 3,
+    )->compile;
+
+    print "Orig Size = " . $res->stats->original_size . "\n";
+    print "Comp Size = " . $res->stats->compressed_size . "\n";
+
+    # prints;
+    # Orig Size = 163855
+    # Comp Size = 65523
+
+=back
 
 =head2 compile
 
@@ -187,6 +247,20 @@ Will die if unable to connect to the Google closure service.
 =head1 AUTHOR
 
 Magnus Erixzon, C<< <magnus at erixzon.com> >>
+
+=head1 TODO
+
+=over 4
+
+=item externs
+
+When using the compilation level ADVANCED_OPTIMIZATIONS, the compiler achieves extra compression by being more aggressive in the ways that it transforms code and renames symbols. However, this more aggressive approach means that you must take greater care when you use ADVANCED_OPTIMIZATIONS to ensure that the output code works the same way as the input code.
+
+One problem is if your code uses external code that you're not submitting to the compiler - The compiler might then optimize code away, as its not aware of the externally defined functions. The solutions to this is using "externs". I'll implement this when I need it, or if someone asks for it.
+
+See L<http://code.google.com/closure/compiler/docs/api-tutorial3.html> for more information.
+
+=back
 
 =head1 BUGS
 

@@ -82,3 +82,73 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 __END__
+
+=head1 NAME
+
+WebService::Google::Closure::Response - Response object from compiling Javascript with Closure
+
+=head1 SYNOPSIS
+
+    my $res = WebService::Google::Closure->new(
+      js_code => $js_code,
+    )->compile;
+
+    if ( $res->is_success ) {
+        print "Shenanigans ahead:\n";
+        print $res->code;
+    }
+    else {
+        foreach my $err ( @{ $res->errors } ) {
+             $txt .= sprintf("%s line (%d) char [%d].\n",
+                             $err->text,
+                             $err->lineno,
+                             $err->charno);
+        }
+        die $txt;
+    }
+
+=head1 METHODS
+
+=head2 $response->is_success
+
+Boolean saying if the compilation was successful or not.
+
+=head2 $response->code
+
+Returns a string with the compiled javascript code.
+
+=head2 $response->has_warnings
+
+Boolean saying if the compilation generated any warnings
+
+=head2 $response->warnings
+
+An array reference of L<WebService::Google::Type::Warning> objects.
+
+=head2 $response->has_errors
+
+Boolean saying if the compilation generated any errors
+
+=head2 $response->errors
+
+An array reference of L<WebService::Google::Type::Error> objects.
+
+=head2 $response->has_stats
+
+Boolean saying if statistics are available
+
+=head2 $response->stats
+
+A L<WebService::Google::Type::Stats> object.
+
+=head1 LICENSE AND COPYRIGHT
+
+Copyright 2010 Magnus Erixzon.
+
+This program is free software; you can redistribute it and/or modify it
+under the terms of either: the GNU General Public License as published
+by the Free Software Foundation; or the Artistic License.
+
+See http://dev.perl.org/licenses/ for more information.
+
+=cut
