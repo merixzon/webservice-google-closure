@@ -1,0 +1,123 @@
+#!/usr/bin/perl
+
+use Getopt::Long;
+
+use WebService::Google::Closure;
+
+sub show_help {
+    printf <<EOF;
+Usage: $0 [options] file/url...
+Options:
+\t--level\tWHITESPACE_ONLY, SIMPLE_OPTIMIZATIONS, or ADVANCED_OPTIMIZATIONS
+
+After the options, specify one or more filenames or urls that you wish to optimize
+If no filenames are specified, javascript is read from standard input
+Example: $0 /var/www/js/stuff.js
+
+For more information, see the Google Closure Tools website:
+\thttp://code.google.com/closure/
+
+EOF
+    exit;
+}
+
+my $args = {};
+my $help;
+GetOptions(
+    "level=i", \$args->{ compilation_level },
+    "help",\$help,
+) or show_help;
+show_help if ( $help );
+
+if ( scalar( @ARGV ) == 0 ) {
+    # read stdin
+    while (<>) {
+        $args->{ js_code } .= $_;
+    }
+}
+
+foreach my $in ( @ARGV ) {
+    if ( $in =~ m{^http}i ) {
+        push @{ $args->{ url } }, $in;
+    }
+    else {
+        push @{ $args->{ file } }, $in;
+    }
+}
+
+my $closure = WebService::Google::Closure->new( %$args )->compile;
+if ( $closure->is_success ) {
+    print $closure->code;
+}
+else {
+    my $txt = '';
+    foreach my $err ( @{ $closure->errors } ) {
+        $txt .= sprintf("%s line (%d) char [%d].\n",
+                        $err->text,
+                        $err->lineno,
+                        $err->charno);
+    }
+    die $txt;
+}
+
+1;
+
+__END__
+
+
+=head1 NAME
+
+closure-compile - Compile javascript using the Google closure API
+
+=head1 SYNOPSIS
+
+ Usage: closure-compile [options] file/url...
+
+Options:
+
+=over 4
+
+=item --level        WHITESPACE_ONLY, SIMPLE_OPTIMIZATIONS, or ADVANCED_OPTIMIZATIONS
+
+=back
+
+After the options, specify one or more filenames or urls that you wish to optimize
+If no filenames are specified, javascript is read from standard input
+
+For more information, see the Google Closure Tools website:
+
+ L<http://code.google.com/closure/>
+
+=head1 EXAMPLES
+
+=over 4
+
+=item Compile all Javascript files in one directory into one file
+
+The following command will compile all javascript files in the I<js> directory and put the output in compiled.js
+
+ cat js/*.js | closure-compile > compiled.js
+
+=back
+
+=head1 AUTHOR
+
+Magnus Erixzon, C<< <magnus at erixzon.com> >>
+
+=head1 BUGS
+
+Please report any bugs or feature requests to C<bug-webservice-google-closure at rt.cpan.org>, or through
+the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=WebService-Google-Closure>.  I will be notified, and then you'll
+automatically be notified of progress on your bug as I make changes.
+
+=head1 LICENSE AND COPYRIGHT
+
+Copyright 2010 Magnus Erixzon.
+
+This program is free software; you can redistribute it and/or modify it
+under the terms of either: the GNU General Public License as published
+by the Free Software Foundation; or the Artistic License.
+
+See http://dev.perl.org/licenses/ for more information.
+
+=cut
