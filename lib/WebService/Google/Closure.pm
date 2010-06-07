@@ -4,11 +4,12 @@ use Moose;
 use MooseX::Types::Moose qw( ArrayRef Str Int );
 use LWP::UserAgent;
 use Carp qw( croak );
+use File::Slurp qw( slurp );
 
 use WebService::Google::Closure::Types qw( ArrayRefOfStrings CompilationLevel );
 use WebService::Google::Closure::Response;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 $VERSION = eval $VERSION;
 
 has js_code => (
@@ -73,10 +74,7 @@ sub _set_file {
     my $self = shift;
     my $content = '';
     foreach my $f ( @{ $self->file } ) {
-        open (my $fh, "<", $f) or die "Can't read file: $f";
-        local $/;
-        $content .= <$fh>;
-        close ($fh);
+        $content .= slurp( $f );
     }
     $self->js_code( $content );
 }

@@ -94,5 +94,5 @@ sub test_with_file_fail {
         )->compile;
     };
     ok($@, "Compilation died with bad filename");
-    like($@,qr{Can't read file},"...with correct error");
+    like($@,qr{No such file},"...with correct error");
 }

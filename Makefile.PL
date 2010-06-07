@@ -16,6 +16,7 @@ WriteMakefile(
         'Test::More' => 0,
         'Test::Class' => 0,
         'LWP::UserAgent::Mockable' => 0,
+        'File::Slurp' => 0,
     },
     EXE_FILES           => [qw(bin/closure-compile)],
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
