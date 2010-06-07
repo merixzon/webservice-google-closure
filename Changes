@@ -2,6 +2,7 @@ Revision history for WebService-Google-Closure
 
 0.02    07 June 2010
 
+	- Fixed --level option to closure-compile to allow number or string
 	- use File::Slurp
 
 0.01    01 June 2010
