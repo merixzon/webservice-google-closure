@@ -77,6 +77,16 @@ sub _set_content {
     }
 }
 
+# bail out on server errors
+sub _set_serverErrors {
+    my ($self, $err) = @_;
+    my $text = '';
+    foreach my $e ( @{ $err } ) {
+        $text .= $e->{ error };
+    }
+    die $text;
+}
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;

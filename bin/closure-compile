@@ -14,6 +14,9 @@ Options:
 \t\t2 or "SIMPLE_OPTIMIZATIONS" (default)
 \t\t3 or "ADVANCED_OPTIMIZATIONS"
 
+\t--manifest=file
+\t\tFilenames and urls to be compiled are read from given manifest file
+
 After the options, specify one or more filenames or urls that you wish to optimize
 If no filenames are specified, javascript is read from standard input
 Example: $0 /var/www/js/stuff.js
@@ -27,11 +30,23 @@ EOF
 
 my $args = {};
 my $help;
+my $manifest;
 GetOptions(
     "level=s", \$args->{ compilation_level },
+    "manifest=s", \$manifest,
     "help",\$help,
 ) or show_help;
 show_help if ( $help );
+
+if ($manifest) {
+    open(my $fh, "<", $manifest) or die "Can't open manifest file [$manifest]: $!";
+    while (<$fh>) {
+        chomp;
+        next if ( m/^\#/ );
+        push @ARGV, $_;
+    }
+    close ($fh);
+}
 
 if ( scalar( @ARGV ) == 0 ) {
     # read stdin
@@ -100,6 +115,10 @@ Performs compression and optimization that does not interfere with the interacti
 Achieves the highest level of compression by renaming symbols in your JavaScript. When using ADVANCED_OPTIMIZATIONS compilation you must perform extra steps to preserve references to external symbols.
 
 =back
+
+=item --manifest
+
+Specify a manifest file containing the filenames/urls that should be compiled
 
 =back
 
