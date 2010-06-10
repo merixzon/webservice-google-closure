@@ -1,5 +1,9 @@
 Revision history for WebService-Google-Closure
 
+0.04    10 June 2010
+
+	- Add JSON as prerequisite
+
 0.03    08 June 2010
 
 	- Added option --manifest to closure-compile
