@@ -2,7 +2,7 @@ package WebService::Google::Closure::Response;
 
 use Moose;
 use MooseX::Types::Moose qw( ArrayRef Str Int );
-use JSON;
+use JSON qw( from_json );
 
 use WebService::Google::Closure::Types qw( ArrayRefOfWarnings ArrayRefOfErrors Stats );
 

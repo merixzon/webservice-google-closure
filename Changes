@@ -1,5 +1,9 @@
 Revision history for WebService-Google-Closure
 
+0.05    15 June 2010
+
+	- Specifically import "from_json" to please cpantesters
+
 0.04    10 June 2010
 
 	- Add JSON as prerequisite
