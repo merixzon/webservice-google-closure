@@ -2,7 +2,7 @@ package WebService::Google::Closure::Response;
 
 use Moose;
 use MooseX::Types::Moose qw( ArrayRef Str Int );
-use JSON qw( from_json );
+use JSON;
 
 use WebService::Google::Closure::Types qw( ArrayRefOfWarnings ArrayRefOfErrors Stats );
 
@@ -69,7 +69,8 @@ sub _build_is_success {
 sub _set_content {
     my $self = shift;
 
-    my $content = from_json( $self->content );
+    my $json = JSON->new();
+    my $content = $json->decode( $self->content );
     foreach my $key ( keys %{ $content } ) {
         next unless $content->{ $key };
         my $set = '_set_' . $key;

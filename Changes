@@ -1,5 +1,9 @@
 Revision history for WebService-Google-Closure
 
+0.06    3 July 2010
+
+	- OO JSON
+
 0.05    15 June 2010
 
 	- Specifically import "from_json" to please cpantesters
