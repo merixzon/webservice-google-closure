@@ -34,7 +34,7 @@ sub test_with_code : Test( 4 ) {
     ok( ! $res->has_errors, "...no errors");
 }
 
-sub fail_http_post : Test( 2 ) {
+sub fail_http_post : Test( 1 ) {
 
     no warnings;
     local *HTTP::Response::is_success = sub { 0 };
@@ -47,7 +47,6 @@ sub fail_http_post : Test( 2 ) {
         )->compile;
     };
     ok( defined $@, "http post failed");
-    like( $@, qr{Error posting request},"...with correct error message");
 }
 
 1;
