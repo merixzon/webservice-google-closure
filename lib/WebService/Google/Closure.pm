@@ -9,7 +9,7 @@ use File::Slurp qw( slurp );
 use WebService::Google::Closure::Types qw( ArrayRefOfStrings CompilationLevel );
 use WebService::Google::Closure::Response;
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 $VERSION = eval $VERSION;
 
 has js_code => (
