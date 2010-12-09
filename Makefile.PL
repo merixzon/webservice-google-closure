@@ -18,6 +18,7 @@ WriteMakefile(
         'LWP::UserAgent::Mockable' => 0,
         'File::Slurp' => 0,
         'JSON' => 0,
+        'Class::MOP' => "1.09",
     },
     EXE_FILES           => [qw(bin/closure-compile)],
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
