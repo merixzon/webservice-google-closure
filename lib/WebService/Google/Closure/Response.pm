@@ -154,7 +154,7 @@ A L<WebService::Google::Type::Stats> object.
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2010 Magnus Erixzon.
+Copyright 2010-2011 Magnus Erixzon.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of either: the GNU General Public License as published
