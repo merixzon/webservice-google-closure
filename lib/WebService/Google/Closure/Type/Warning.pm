@@ -27,6 +27,12 @@ has charno => (
     required   => 1,
 );
 
+has line => (
+    is         => 'ro',
+    isa        => Str,
+    required   => 1,
+);
+
 has text => (
     is         => 'ro',
     isa        => Str,

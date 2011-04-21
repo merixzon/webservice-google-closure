@@ -71,10 +71,12 @@ if ( $closure->is_success ) {
 else {
     my $txt = '';
     foreach my $err ( @{ $closure->errors } ) {
-        $txt .= sprintf("%s line (%d) char [%d].\n",
+        $txt .= sprintf("%s line (%d) char [%d]. - %s\n",
                         $err->text,
                         $err->lineno,
-                        $err->charno);
+                        $err->charno,
+                        $err->line
+                    );
     }
     die $txt;
 }
