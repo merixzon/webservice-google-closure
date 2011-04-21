@@ -95,6 +95,14 @@ sub _build_output_info {
 sub compile {
     my $self = shift;
 
+    if ( $self->compilation_level eq 'NOOP' ) {
+        # Don't bother the compiler
+        return WebService::Google::Closure::Response->new(
+            format  => $self->output_format,
+            code    => $self->js_code,
+        );
+    }
+
     my $post_args = {};
     foreach my $arg (qw( js_code code_url compilation_level output_format output_info )) {
         next unless $self->$arg;

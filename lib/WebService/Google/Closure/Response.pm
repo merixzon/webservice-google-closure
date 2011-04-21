@@ -21,7 +21,6 @@ has content => (
 has code => (
     is         => 'ro',
     isa        => Str,
-    init_arg   => undef,
     predicate  => 'has_code',
     writer     => '_set_compiledCode',
 );

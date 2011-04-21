@@ -29,6 +29,7 @@ coerce ArrayRefOfStrings,
     via { [ $_ ] };
 
 my $level = {
+    NOOP                   => 0,
     WHITESPACE_ONLY        => 1,
     SIMPLE_OPTIMIZATIONS   => 2,
     ADVANCED_OPTIMIZATIONS => 3,
