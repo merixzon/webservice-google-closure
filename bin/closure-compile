@@ -10,6 +10,7 @@ Usage: $0 [options] file/url...
 Options:
 \t--level=level
 \t\tlevel to be one of
+\t\t0 or "NOOP"
 \t\t1 or "WHITESPACE_ONLY"
 \t\t2 or "SIMPLE_OPTIMIZATIONS" (default)
 \t\t3 or "ADVANCED_OPTIMIZATIONS"
@@ -100,9 +101,14 @@ Options:
 
 =item --level
 
-Specifying how aggressive the compiler should be. There are currently three options.
+Specifying how aggressive the compiler should be. There are four options.
 
 =over 8
+
+=item "NOOP" or 0
+
+Does not call the closure service at all, just returns the Javascript code as is.
+This is useful if you're using a manifest file, and need to debug your code or to compile the javascript into one file without having Internet access. B<Note> that this will only work if the values in your Manifest file are filenames, not urls.
 
 =item "WHITESPACE_ONLY" or 1
 
