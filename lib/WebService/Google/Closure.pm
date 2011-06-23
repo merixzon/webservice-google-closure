@@ -95,7 +95,7 @@ sub _build_output_info {
 sub compile {
     my $self = shift;
 
-    if ( $self->compilation_level eq 'NOOP' ) {
+    if ( $self->compilation_level && $self->compilation_level eq 'NOOP' ) {
         # Don't bother the compiler
         return WebService::Google::Closure::Response->new(
             format  => $self->output_format,
