@@ -1,5 +1,9 @@
 Revision history for WebService-Google-Closure
 
+0.09    23 June 2011
+
+	- Added 'NOOP' compilation level
+
 0.08	9 Dec 2010
 
 	- Require at least version 1.09 of Class::MOP
