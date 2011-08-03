@@ -5,6 +5,7 @@
 use strict;
 use warnings;
 use Test::More tests => 20;
+use Errno qw(ENOENT);
 
 use WebService::Google::Closure;
 
@@ -94,5 +95,5 @@ sub test_with_file_fail {
         )->compile;
     };
     ok($@, "Compilation died with bad filename");
-    like($@,qr{No such file},"...with correct error");
+    ok($! == ENOENT, "...with correct error");
 }
