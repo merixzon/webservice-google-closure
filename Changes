@@ -1,5 +1,9 @@
 Revision history for WebService-Google-Closure
 
+0.11    27 Dec 2015
+        - Fix bad code test, following change by Google [RT#110454]
+          Thanks to SREZIC for reporting
+
 0.10	3 Aug 2011
 
 	- Fix test not to depend on locale [RT#69975]
