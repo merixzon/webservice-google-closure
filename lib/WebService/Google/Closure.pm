@@ -46,7 +46,7 @@ has timeout => (
 has post_url => (
     is         => 'ro',
     isa        => Str,
-    default    => 'http://closure-compiler.appspot.com/compile',
+    default    => 'https://closure-compiler.appspot.com/compile',
     init_arg   => undef,
 );
 
